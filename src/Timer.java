@@ -1,3 +1,5 @@
+package src;
+
 public class Timer {
     double tempo;
     double limite;

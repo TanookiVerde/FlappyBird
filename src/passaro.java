@@ -1,3 +1,5 @@
+package src;
+
 
 public class passaro {
 	int posX,
@@ -37,4 +39,9 @@ public class passaro {
 	public void kill(){
 		if(this.posY > 450)this.alive = false;
 	}
+	public boolean collide(cano tubo){
+	   //com cano de cima
+	   //com cano de baixo
+	   return false;
+	   }
 }

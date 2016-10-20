@@ -1,3 +1,5 @@
+package src;
+
 public class Hitbox {
     // Posições
     public static int TOPO     = 1;
