@@ -9,6 +9,7 @@ public class passaro {
 	       forcaPulo,
 	       gravidade,
 	       velocidade;
+	Hitbox hitbox;
 	public passaro(){
 		posX = 100;
 		posY = 250;
@@ -17,6 +18,7 @@ public class passaro {
 		forcaPulo = 0.0;
 		gravidade = 10.0;
 		alive = true;
+		hitbox = new Hitbox(posX,posY,posX+34,posY+24);
 	}
 	public void gravidade(double dt){
 		this.velocidade += gravidade*dt;
@@ -32,6 +34,7 @@ public class passaro {
 	}
 	public void mover(double dt){
 		this.posY += this.velocidade*dt;
+		this.hitbox.mover(0,this.velocidade*dt);
 	}
 	public void draw(Tela tela){
 		if(this.alive)tela.imagem("flappy.png", 528, 180, 34, 24, this.angulo, this.posX, this.posY);
@@ -39,9 +42,4 @@ public class passaro {
 	public void kill(){
 		if(this.posY > 450)this.alive = false;
 	}
-	public boolean collide(cano tubo){
-	   //com cano de cima
-	   //com cano de baixo
-	   return false;
-	   }
 }

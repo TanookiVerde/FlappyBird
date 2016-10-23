@@ -9,7 +9,7 @@ public class flappybird implements Jogo
         passaro bird;
         int largura, altura;
         double tempoSpawn = 0;
-        //hashlist de cano
+        Set<cano> listaTubos = new HashSet<cano>();
         
         public flappybird(){
             bird = new passaro();
@@ -31,10 +31,14 @@ public class flappybird implements Jogo
             bird.mover(dt);
             bird.kill();
             
-            for(int i = 0;i<10;i++){
-                bird.collide(cano);
+            for(cano tubo: this.listaTubos){
+                tubo.mover(dt);
+                if( bird.hitbox.intersecao(tubo.pipeHitBoxCIMA)>0 || bird.hitbox.intersecao(tubo.pipeHitBoxBAIXO)>0 ){
+                    bird.alive = false;
+                    break;
+                }
             }
-            
+            spawn(dt);
         }
         public void tecla(String tecla){
             if(tecla.contains(" ")) bird.pular();
@@ -43,6 +47,9 @@ public class flappybird implements Jogo
             //CENARIO
             screen.imagem("flappy.png", 0, 0, 288, 512, 0, 0, 0);
             screen.imagem("flappy.png", 292, -450, 288, 512, 0, 0, 0);
+            for(cano tubo: this.listaTubos){
+                tubo.draw(screen);
+            }
             //PASSARO
             bird.draw(screen);
         }
@@ -53,8 +60,9 @@ public class flappybird implements Jogo
            double limite = 3;
            tempoSpawn += dt;
            if (tempoSpawn >= limite){
-               //new cano
-               //add on hashlist
+               cano temp = new cano();
+               this.listaTubos.add(temp);
+               tempoSpawn = 0;
            }
            }
 }
