@@ -3,50 +3,37 @@ package src;
 import java.util.Random;
 
 
-public class cano {
+public class cano{
     double posX,
            posY;
     int size;
-    boolean alive;
+    boolean alive, print;
     Random aleatorio = new Random();
     Hitbox pipeHitBoxCIMA;
     Hitbox pipeHitBoxBAIXO;
     
     public cano(){
-        posX = 500;
+        posX = 288;
         posY = -50;
         alive = true;
+        print = true;
         size = aleatorio.nextInt(4);
-        switch(this.size){
-            case 1:
-                posY = 0;
-                break;
-            case 2:
-                posY = 0;
-                break;
-            case 3:
-                posY = 0;
-                break;
-            case 4:
-                posY = 0;
-                break;
-        }
-        pipeHitBoxCIMA = new Hitbox(posX,posX+55,posY,posY+400);
-        pipeHitBoxBAIXO = new Hitbox(posX,posX+55,posY,posY+400);
+        posY = -50*size;
+        pipeHitBoxCIMA = new Hitbox(posX,posY,posX+55,posY+272);
+        pipeHitBoxBAIXO = new Hitbox(posX,posY+400,posX+55,posY+400+272);
     }
     public void mover(double dt){
         posX -= 40*dt;
-        this.pipeHitBoxCIMA.mover(-40*dt,0);
-        this.pipeHitBoxBAIXO.mover(-40*dt,0);
+        this.pipeHitBoxCIMA.mover(posX,posY,posX+55,posY+272);
+        this.pipeHitBoxBAIXO.mover(posX,posY+400,posX+55,posY+400+272);
     }
     public void draw(Tela tela){
-        if(this.alive){
-            System.out.println("009");
+        if(this.print){
             tela.imagem("flappy.png", 602, 0, 55, 272, 0, this.posX, this.posY);
-            tela.imagem("flappy.png", 658, 0, 55, 272, 0, this.posX, this.posY);
+            tela.imagem("flappy.png", 658, 0, 55, 272, 0, this.posX, this.posY+400);
           }
     }
     public void kill(){
-        if(this.posX < -100)this.alive = false;
+        if(this.posX < -500)this.print = false;
     }
 }
